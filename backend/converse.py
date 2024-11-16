@@ -30,13 +30,18 @@ conversation = [
 ]
 
 try:
-    response = client.converse(
+    streaming_response = client.converse_stream(
         modelId="meta.llama2-13b-chat-v1",
         messages=conversation,
         inferenceConfig={"maxTokens": 512, "temperature": 0.5, "topP": 0.9},
     )
 
-    response_text = response["output"]["message"]["content"][0]["text"]
-    print(response_text)
+    # Extract and print the streamed response text in real-time.
+    for chunk in streaming_response["stream"]:
+        if "contentBlockDelta" in chunk:
+            text = chunk["contentBlockDelta"]["delta"]["text"]
+            print(text, end="")
+
 except (ClientError, Exception) as e:
-    print(f"ERROR: {e}")
+    print(f"ERROR: Can't invoke '{model_id}'. Reason: {e}")
+    exit(1)
