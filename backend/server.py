@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+#add cors
 
 app = Flask(__name__)
 
@@ -13,18 +14,19 @@ def user_login():
 def supabase_sign_in(email: str, pw: str):
     print(email, pw)
 
-@app.route("/user_signup", methods=["POST"])
-def user_signup():
+@app.route("/data_input", methods=["POST"])
+def data_input():
     if request.method != "POST":
         return jsonify({'error':'Wrong HTTPS method'}), 400
     data = request.form
+    supabase_input(name=data.get("name"), ed=data.get("education"), pe=data.get("professional experience"), proj=data.get("projects"), skill=data.get("skills"), contact=data.get("contacts"))
+    return jsonify({'message':'yipppeeeee'}), 401
 
-    supabase_signup(email=data.get("email"), pw=data.get("password"))
-    return jsonify({'message':'good boy:3'}), 201
+def supabase_input(name:str, ed:str, pe:str, proj:str, skill:str, contact:str):
+    response = (
+        supabase.table("public.user")
+        .update({
+        
 
-def supabase_signup(email:str, pw:str):
-    
-    print(email, pw)
-    
 if __name__ == "__main__":
    app.run(port=5000, debug=True)
