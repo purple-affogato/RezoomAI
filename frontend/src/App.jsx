@@ -5,7 +5,7 @@ import EduEntry from './EduEntry'
 import ExperienceEntry from './ExperienceEntry'
 import ResumeBuilder from './ResumeBuilder'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import JobEntry from './jobpage'
+import JobEntry from './JobEntry'
 import SignIn from './SignIn'
 
 import './App.css'
