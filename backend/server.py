@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
-import CORS
+from flask_cors import CORS
 
 load_dotenv()
 
@@ -25,7 +25,16 @@ def user_login():
     return jsonify({'message':'u r so cool'}), 200
 
 def supabase_sign_in(email: str, pw: str):
-    print(email, pw)
+    try:
+        response = supabase.auth.sign_in_with_password({
+            "email":email,
+            "password": pw
+        })
+    if response.get("error"):
+        return {'error': response["error"]["message"]}, 401
+    else:
+        session_data = response["data"]
+        return {'message': 'Login successful', 'session':session_data}, 200
 
 @app.route("/data_input", methods=["POST"])
 def data_input():
@@ -41,11 +50,11 @@ def supabase_update(uid:str, name:str, ed:str, pe:str, proj:str, skill:str, cont
         .update({{"Name": name}, {"Education": ed}, {"ProfExp": pe}, {"Projects": proj}, {"Skills": skill}, {"Contact": contact}})
         .eq("id", uid)
         .execute()
-    )
+        )
     
 
 if __name__ == "__main__":
-    app.run(host=0:0:0:0, port=5000, debug=True)
+    app.run(port=5000, debug=True)
 
 
 #Name Education ProfExp Projects Skills Contact 
