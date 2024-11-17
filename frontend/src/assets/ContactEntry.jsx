@@ -22,21 +22,27 @@ function ContactEntry() {
              split
              id="dropdown-split-basic">
             {type}
-          </Dropdown.Toggle>
+             </Dropdown.Toggle>
              
           <Dropdown.Menu>
-            <Dropdown.Item eventKey="1" onClick={() => setType("Tel")}>
+
+            <Dropdown.Item eventKey="1" onClick={() => setType("Tel ")}>
               Telephone
             </Dropdown.Item>
-            <Dropdown.Item eventKey="2" onClick={() => setType("Email")}>
+            <Dropdown.Item eventKey="2" onClick={() => setType("Email ")}>
               Email
             </Dropdown.Item>
-            <Dropdown.Item eventKey="3" onClick={() => setType("URL")}>
+            <Dropdown.Item eventKey="3" onClick={() => setType("URL ")}>
               Website
             </Dropdown.Item>
+
+
+
           </Dropdown.Menu>
         </Dropdown>
       </Form.Group>
+      
+
       </InputGroup>
       </Form>
     </>
