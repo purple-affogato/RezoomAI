@@ -29,16 +29,16 @@ function ExperienceEntry(props) {
      */
 
     return (
-        <div className="col">
+        <div className="mb-4">
             <Form>
                 <Row>
                     <div className="col-md-6">
-                        <Form.Group className=""  controlID="formGridTitle" >
+                        <Form.Group className=""  controlID="formGridHeader" >
                             <InputGroup>
                                 <InputGroup.Text id="addon1">{props.name}</InputGroup.Text>
                                     <Form.Control 
                                         type="text" 
-                                        placeholder="Your Title, Your Project, etc..."
+                                        placeholder="Senior Resume Writer, etc..."
                                     />
                             </InputGroup>
                         </Form.Group>
@@ -56,21 +56,34 @@ function ExperienceEntry(props) {
                             />
                             <Form.Control 
                                 type={isCurr}
-                                placeholder = "Current"
+                                placeholder = "Now"
                             />
                             </InputGroup>
                         </div>  
                 </Row>
                 <Row>
                     <div className="row g-2 m-1">
-                        <Form.Group className=""  controlID="formGridTitle" >
+                        <Form.Group className=""  controlID="formGridDescription" >
                             <InputGroup>
                                 <InputGroup.Text id="addon4">Description</InputGroup.Text>
                                     <Form.Control 
                                         rows = "5"
                                         type="text" 
                                         as = "textarea"
-                                        placeholder="Tell us about your project? What did you learn? What did you use?"
+                                        placeholder="What was it about?"
+                                    />
+                            </InputGroup>
+                        </Form.Group>
+                    </div>
+                    <div className="row g-2 m-1">
+                        <Form.Group className=""  controlID="formGridSkills" >
+                            <InputGroup>
+                                <InputGroup.Text id="addon5">Skills</InputGroup.Text>
+                                    <Form.Control 
+                                        rows = "1"
+                                        type="text" 
+                                        as = "textarea"
+                                        placeholder="What did you use? What did you learn?"
                                     />
                             </InputGroup>
                         </Form.Group>

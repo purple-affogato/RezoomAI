@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import InputGroup from 'react-bootstrap/InputGroup';
 import {Form, Button } from 'react-bootstrap';
 import './App.css'
-import ContactEntry from './assets/ContactEntry'
+import ContactEntry from './ContactEntry'
 
     function JobEntry(){
         const [entries, setEntries] = useState([]);

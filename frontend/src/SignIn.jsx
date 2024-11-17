@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, Form, InputGroup } from "react-bootstrap";
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Link } from 'react-router-dom'
 
 
 
@@ -21,9 +21,11 @@ function SignIn() {
             </Form.Group>
 
             <div style={{ marginTop: '20px' }}>
-                <Button variant='primary' type='submit'>
-                    Submit
-                </Button>
+                <Link to="/builder">
+                    <Button variant='primary' type='submit'>
+                        Submit
+                    </Button>
+                </Link>
             </div>
         </Form>
     )
