@@ -2,7 +2,8 @@ from flask import Flask, request, jsonify
 import os
 from dotenv import load_dotenv
 from flask_cors import CORS
-from userlogin import sign_in, sign_out
+from userlogin import sign_in, sign_out, create_client, Client
+from update import supabase_update
 
 app = Flask(__name__)
 CORS(app)
@@ -27,18 +28,10 @@ def data_input():
     if request.method != "POST":
         return jsonify({'error':'Wrong HTTPS method'}), 400
     data = request.form
-    supabase_update(name=data.get("name"), ed=data.get("education"), pe=data.get("professional experience"), proj=data.get("projects"), skill=data.get("skills"), contact=data.get("contacts"))
-    return jsonify({'message':'yipppeeeee'}), 401
+    return jsonify(supabase_update(uid=GLOBALVARIABLEHERE, name=data.get("name"), ed=data.get("education"), pe=data.get("professional experience"), proj=data.get("projects"), skill=data.get("skills"), contact=data.get("contacts")))
 
-def supabase_update(uid:str, name:str, ed:str, pe:str, proj:str, skill:str, contact:str):
-    response = (
-        supabase.table("public.user")
-        .update({{"Name": name}, {"Education": ed}, {"ProfExp": pe}, {"Projects": proj}, {"Skills": skill}, {"Contact": contact}})
-        .eq("id", uid)
-        .execute()
-        )
 
-@app.route("/user_logout", method=["POST"])
+@app.route("/user_logout", methods=["POST"])
 def user_logout():
     sign_out()
 
@@ -49,7 +42,7 @@ def generate_resume():
     
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(host="0.0.0.0", port=3000, debug=True)
 
 
 #Name Education ProfExp Projects Skills Contact 
