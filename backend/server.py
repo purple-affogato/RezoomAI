@@ -42,7 +42,9 @@ def user_logout():
 @app.route("/check_login", methods=["GET"])
 def check_login():
     response = supabase.auth.get_user()
-    return jsonify({"id":response.user.id})
+    if response is None:
+        return jsonify({"id":"not logged in"}), 200
+    return jsonify({"id":response.user.id}), 200
 
 @app.route("/data_input", methods=["POST"])
 def data_input():
