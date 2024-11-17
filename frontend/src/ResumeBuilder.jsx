@@ -1,28 +1,51 @@
 import { useState } from 'react'
 import {Routes, Route} from 'react-router-dom'
 import ContactEntry from './assets/ContactEntry'
+import EduEntry from './EduEntry'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { InputGroup, Form, Button } from 'react-bootstrap';
+import { InputGroup, Form, Button,Badge } from 'react-bootstrap';
 import './App.css'
 
 function ResumeBuilder() {
-  const [entries, setEntries] = useState([]);
+  const [contactEntries, setContactEntries] = useState([]);
+  const [EduEntries, setEduEntries] = useState([]);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
 
-  const addEntry = () => {
-    setEntries((prevEntries) => [
-      ...prevEntries,
-      <ContactEntry key={prevEntries.length} />, 
-    ]);
+  const addContactEntry = () => {
+    setContactEntries((prevEntries) => {
+      if (prevEntries.length >= 4) {
+        alert("You can't add more than 4 contact entries."); 
+        return prevEntries;
+      }
+      return [
+        ...prevEntries,
+        <ContactEntry key={prevEntries.length} />, 
+      ];
+    });
   };
-  const removeEntry = () => {
-    setEntries((prevEntries) => [
-      ...prevEntries,
-      <ContactEntry key={prevEntries.length} />, 
-    ]);
+
+  const addEduEntry = () => {
+    setEduEntries((prevEntries) => {
+        if (prevEntries.length >= 5) {
+            alert("You can't add more than 4 edu entries."); 
+            return prevEntries;
+          }
+        return [
+         ...prevEntries,
+         <EduEntry key={prevEntries.length} />
+     ];
+    });
   };
+ 
+
 
   return(
     <>
+    <Form>
+        <h1>
+        Resume Builder <Badge bg="secondary">Profile</Badge>
+        </h1>
     <InputGroup className="mb-3">
       <InputGroup.Text id="basic-addon1">name</InputGroup.Text>
       <Form.Control type="text" placeholder="Name"/>
@@ -42,17 +65,23 @@ function ResumeBuilder() {
       
      
       <Button className="mb-3" variant="outline-secondary" id="button-addon1" onClick={
-        addEntry
+        addContactEntry
       }>
       More Contact info
       </Button>
-
-
-
          <div>
-        {entries} 
+        {contactEntries} 
       </div>
       
+      <Button className="mb-3" variant="outline-secondary" id="button-addon2" onClick={
+        addEduEntry
+      }>
+      More education info
+      </Button>
+      <div>
+        {EduEntries} 
+      </div>
+      </Form>
       
       </>
 )

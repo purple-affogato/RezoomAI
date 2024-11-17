@@ -16,7 +16,7 @@ return(
       <InputGroup.Text>Education</InputGroup.Text>
       <Form.Control type="text" placeholder="Institution"/>
       <Form.Control type="text" placeholder="Degree"/>
-      <Form.Control type="number" placeholder="Grad Year"/>
+      <Form.Control type="text" placeholder="Grad Year"/>
     </InputGroup>
 </Form>
         
