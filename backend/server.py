@@ -30,10 +30,19 @@ def user_login():
 def user_logout():
     return sign_out()
 
+@app.route("/data_input", methods=["POST"])
+def data_input():
+    if request.method != "POST":
+        return jsonify({'error':'Wrong HTTPS method'}), 400
+    data = request.form
+    return jsonify(supabase_update(uid=uid, name=data.get("name"), ed=data.get("education"), pe=data.get("professional experience"), proj=data.get("projects"), skill=data.get("skills"), contact=data.get("contacts")))
+
+
+
 @app.route("/generate_resume", methods=["POST"])
 def generate_resume():
     if request.method != "POST":
         return jsonify({'error':'Wrong HTTPS method'}), 400
     
 if __name__ == "__main__":
-   app.run(host="0.0.0.0", port=5000, debug=True)
+   app.run(host="0.0.0.0", port=3000, debug=True)
