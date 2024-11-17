@@ -1,12 +1,11 @@
 from flask import Flask, request, jsonify
 import os
-from supabase import create_client, Client
 from dotenv import load_dotenv
 from flask_cors import CORS
-
-load_dotenv()
+from userlogin import sign_in, sign_out
 
 app = Flask(__name__)
+CORS(app)
 
 url:str = os.getenv("SUPABASE_URL")
 key:str = os.getenv("SUPABASE_KEY")
@@ -21,20 +20,7 @@ def user_login():
     if request.method != "POST":
         return jsonify({'error':'Wrong HTTPS method'}), 400
     data = request.form
-    supabase_sign_in(email=data.get("email"), pw=data.get("password"))
-    return jsonify({'message':'u r so cool'}), 200
-
-def supabase_sign_in(email: str, pw: str):
-    try:
-        response = supabase.auth.sign_in_with_password({
-            "email":email,
-            "password": pw
-        })
-    if response.get("error"):
-        return {'error': response["error"]["message"]}, 401
-    else:
-        session_data = response["data"]
-        return {'message': 'Login successful', 'session':session_data}, 200
+    return jsonify(sign_in(email=data.get("email"), pw=data.get("password")))
 
 @app.route("/data_input", methods=["POST"])
 def data_input():
@@ -51,6 +37,15 @@ def supabase_update(uid:str, name:str, ed:str, pe:str, proj:str, skill:str, cont
         .eq("id", uid)
         .execute()
         )
+
+@app.route("/user_logout", method=["POST"])
+def user_logout():
+    sign_out()
+
+@app.route("/generate_resume", methods=["POST"])
+def generate_resume():
+    if request.method != "POST":
+        return jsonify({'error':'Wrong HTTPS method'}), 400
     
 
 if __name__ == "__main__":
