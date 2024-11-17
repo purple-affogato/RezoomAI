@@ -13,7 +13,7 @@ function SignIn() {
         fetch("http://172.31.19.12:3000/check_login").then(response => response.json())
         .then((result) => {
             if (result["id"] !== "not logged in")
-                navigate("/builder")
+                navigate("/builder", {replace:true})
         })
         .catch(error => console.log('error', error));
     })
