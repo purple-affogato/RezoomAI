@@ -1,7 +1,20 @@
 from flask import Flask, request, jsonify
-#add cors
+import os
+from supabase import create_client, Client
+from dotenv import load_dotenv
+import CORS
+
+load_dotenv()
 
 app = Flask(__name__)
+
+url:str = os.getenv("SUPABASE_URL")
+key:str = os.getenv("SUPABASE_KEY")
+supabase: Client = create_client(url, key)
+
+@app.route("/")
+def home():
+    return ("eee")
 
 @app.route("/user_login", methods=["POST"])
 def user_login():
@@ -19,14 +32,20 @@ def data_input():
     if request.method != "POST":
         return jsonify({'error':'Wrong HTTPS method'}), 400
     data = request.form
-    supabase_input(name=data.get("name"), ed=data.get("education"), pe=data.get("professional experience"), proj=data.get("projects"), skill=data.get("skills"), contact=data.get("contacts"))
+    supabase_update(name=data.get("name"), ed=data.get("education"), pe=data.get("professional experience"), proj=data.get("projects"), skill=data.get("skills"), contact=data.get("contacts"))
     return jsonify({'message':'yipppeeeee'}), 401
 
-def supabase_input(name:str, ed:str, pe:str, proj:str, skill:str, contact:str):
+def supabase_update(uid:str, name:str, ed:str, pe:str, proj:str, skill:str, contact:str):
     response = (
         supabase.table("public.user")
-        .update({
-        
+        .update({{"Name": name}, {"Education": ed}, {"ProfExp": pe}, {"Projects": proj}, {"Skills": skill}, {"Contact": contact}})
+        .eq("id", uid)
+        .execute()
+    )
+    
 
 if __name__ == "__main__":
-   app.run(port=5000, debug=True)
+    app.run(host=0:0:0:0, port=5000, debug=True)
+
+
+#Name Education ProfExp Projects Skills Contact 
