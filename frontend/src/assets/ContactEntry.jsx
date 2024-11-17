@@ -20,6 +20,7 @@ function ContactEntry() {
          <Dropdown as="div" className="contactType">
              <Dropdown.Toggle
              split
+             variant="outline-secondary"
              id="dropdown-split-basic">
             {type}
              </Dropdown.Toggle>
