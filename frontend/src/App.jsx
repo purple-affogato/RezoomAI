@@ -7,21 +7,21 @@ import ResumeBuilder from './ResumeBuilder'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import JobEntry from './JobEntry'
 import SignIn from './SignIn'
+import Backup from './Backup'
 
 import './App.css'
 
 
 function App() {
   return(
-  <Routes>
-    <Route path="/" element={<SignIn/>} />
-    <Route path="/builder" element={<ResumeBuilder/>}/>
-    <Route path="/joblisting" element={<JobEntry/>}/>
-    
-  </Routes>
-
-
-)
+    <Routes>
+      <Route path="/" element={<SignIn/>} />
+      <Route path="/builder" element={<ResumeBuilder/>}/>
+      <Route path="/joblisting" element={<JobEntry/>}/>
+      
+      <Route path="/backup" element={<Backup/>}/>
+    </Routes>
+  )
 }
 
 export default App
