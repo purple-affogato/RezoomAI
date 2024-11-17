@@ -34,3 +34,23 @@ def get_docx(client:Client, text:str, name, contacts):
     response = client.storage.from_("bucky").get_public_url(file_path)
     return response
     
+def get_docx_backup(client:Client, text):
+    doc = Document()
+    para = doc.add_paragraph(text)
+    para.paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
+    para.style.font.size = Pt(12)
+    para.style.font.name = "Arial"
+    para.paragraph_format.space_after = 0
+    file_path = "resume.docx"
+    doc.save(file_path)
+    # upload to bucket
+    with open('./'+file_path, 'rb') as f:
+        response = client.storage.from_("bucky").upload(
+        file=f,
+        path=file_path,
+        file_options={"cache-control": "3600", "upsert": "false"},
+    )
+        
+    # send docx
+    response = client.storage.from_("bucky").get_public_url(file_path)
+    return {"url": response.publicURL}

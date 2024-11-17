@@ -9,7 +9,7 @@ function SignIn() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            fetch("http://172.31.28.252:3000/check_login")
+            fetch("http://172.31.19.12:3000/check_login")
                 .then((response) => response.json())
                 .then((result) => {
                     if (result["id"] !== "not logged in") {

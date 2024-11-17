@@ -5,6 +5,7 @@ from update import supabase_update
 import os
 from supabase import create_client, Client
 from dotenv import load_dotenv
+from bedrock import bedrock_backup
 
 
 app = Flask(__name__)
@@ -56,10 +57,12 @@ def data_input():
     return jsonify(supabase_update(supabase, uid=uid, name=data.get("name"), ed=data.get("education"), pe=data.get("professional experience"), proj=data.get("projects"), skill=data.get("skills"), contact=data.get("contacts")))
 
 
-@app.route("/generate_resume", methods=["POST"])
-def generate_resume():
+@app.route("/generate_resume_backup", methods=["POST"])
+def generate_resume_backup():
     if request.method != "POST":
         return jsonify({'error':'Wrong HTTPS method'}), 400
+    data = request.form
+    return jsonify(bedrock_backup(supabase, data.get("data"), data.get("jobd")))
     
 if __name__ == "__main__":
    app.run(host="0.0.0.0", port=3000, debug=True)

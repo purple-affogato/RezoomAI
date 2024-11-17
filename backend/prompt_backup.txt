@@ -3,4 +3,6 @@ If there is enough information in skills, professional experience, and technical
 The generated resume bullet points should also contain keywords from the job description. Pick out 3 important skills and experiences from you. Have as many keywords from the job description as possible in the resume that prove that the individual matches the skills required for the position. For this process, emphasize technical skills. Reformat user data using job description, and do not create bullet points solely for the purpose of having keywords for the job description.
 The professional experience and project description will be given either as bullet points or in sentences. Handle both effectively.
 [data]
+job description:
+[jobd]
 Take the given information, and create resume ready bullet points according to the given guidelines. Fit it into a standard Google Doc page. Don’t include things that wouldn’t be on a standard resume. Don’t have a certifications and clearance section. Only have one skills section. The skills section should only be things that the user has input, none of the skills should be taken from the job description if the user does not input them. Get rid of the relevant skills section at the end. Don’t return any sections other than skills, experience, and projects. Do not return space for name or contact information.
