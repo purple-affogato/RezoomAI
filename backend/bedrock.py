@@ -49,7 +49,7 @@ def bedrock(skills:str, profexp:str, projs:str):
     except (ClientError, Exception) as e:
         print(f"ERROR: {e}")
 
-def bedrock_backup(supabase:Client, text, jobd):
+def bedrock_backup(supabase:Client, text:str, jobd:str):
     # Put your AWS credentials in a .env file
     access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
     secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
@@ -65,7 +65,7 @@ def bedrock_backup(supabase:Client, text, jobd):
     model_id = "us.meta.llama3-2-3b-instruct-v1:0"
 
     # The message you want to send to the model
-    with open("prompt.txt") as f:
+    with open("prompt_backup.txt", 'r', encoding="utf8") as f:
         user_message = f.read()
 
     user_message.replace("[data]", text)
@@ -86,6 +86,6 @@ def bedrock_backup(supabase:Client, text, jobd):
         )
 
         response_text = response["output"]["message"]["content"][0]["text"]
-        get_docx_backup(supabase, response_text)
+        return {"final":response_text}
     except (ClientError, Exception) as e:
         print(f"ERROR: {e}")

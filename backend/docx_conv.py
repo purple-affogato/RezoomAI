@@ -35,6 +35,7 @@ def get_docx(client:Client, text:str, name, contacts):
     return response
     
 def get_docx_backup(client:Client, text):
+    print(text)
     doc = Document()
     para = doc.add_paragraph(text)
     para.paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
