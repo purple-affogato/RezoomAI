@@ -1,28 +1,32 @@
-import { useState } from 'react'
+import { useState, useRef, useImperativeHandle, forwardRef } from 'react'
 import { Button, Dropdown,Form } from "react-bootstrap";
 import { Routes, Route } from 'react-router-dom'
 import InputGroup from 'react-bootstrap/InputGroup';
 
 
-function EduEntry() {
+const EduEntry = forwardRef(({}, ref) => {
+    const inst = useRef();
+    const deg = useRef();
+    const gyr = useRef();
 
-return(
+    useImperativeHandle(
+        ref,
+        () => ({
+            getInputValue: () => {inst.current.value, deg.current.value, gyr.current.value}
+        })
+    );
+
+    return(
+        <Form>
+            <InputGroup className="mb-3">
+            <InputGroup.Text>Education</InputGroup.Text>
+            <Form.Control type="text" placeholder="Institution" ref={inst}/>
+            <Form.Control type="text" placeholder="Degree" ref={deg}/>
+            <Form.Control type="text" placeholder="Grad Year" ref={gyr}/>
+            </InputGroup>
+        </Form>
+    );
 
 
-    <>
-
-<Form>
-    <InputGroup className="mb-3">
-      <InputGroup.Text>Education</InputGroup.Text>
-      <Form.Control type="text" placeholder="Institution"/>
-      <Form.Control type="text" placeholder="Degree"/>
-      <Form.Control type="text" placeholder="Grad Year"/>
-    </InputGroup>
-</Form>
-        
-    </>
-)
-
-
-}
+});
 export default EduEntry

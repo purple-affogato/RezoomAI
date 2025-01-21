@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useImperativeHandle, forwardRef } from 'react';
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -6,9 +6,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function ExperienceEntry(props) {
+const ExperienceEntry = forwardRef(({name}, ref) => {
     const [isUnchecked, setIsUnchecked] = useState(false);
     const [isCurr, setIsCurr] = useState("month");
+    const title = useRef();
+    // const
 
     const handleCheckboxChange = () => {
         setIsUnchecked(!isUnchecked);
@@ -35,10 +37,11 @@ function ExperienceEntry(props) {
                     <div className="col-md-6">
                         <Form.Group className=""  controlID="formGridHeader" >
                             <InputGroup>
-                                <InputGroup.Text id="addon1">{props.name}</InputGroup.Text>
+                                <InputGroup.Text id="addon1">{name}</InputGroup.Text>
                                     <Form.Control 
                                         type="text" 
                                         placeholder="Senior Resume Writer, etc..."
+                                        ref={title}
                                     />
                             </InputGroup>
                         </Form.Group>
@@ -92,6 +95,6 @@ function ExperienceEntry(props) {
             </Form>
         </div>
     )
-}
+});
 
 export default ExperienceEntry

@@ -1,19 +1,27 @@
-import { useState } from 'react'
+import { useState, useImperativeHandle, forwardRef, useRef } from 'react'
 import { Button, Dropdown,Form } from "react-bootstrap";
 import { Routes, Route } from 'react-router-dom'
 import InputGroup from 'react-bootstrap/InputGroup';
 
 
 
-function ContactEntry() {
+const ContactEntry = forwardRef(({}, ref) => {
     const [type, setType] = useState("Select Contact Method ");
+    const input = useRef();
+
+    useImperativeHandle(
+        ref,
+        () => ({
+            getInputValue: () => input.current.value
+        })
+    );
 
     return(
         <>
         <Form>
         <InputGroup>
-             <Form.Group className="mb-3" controlId="contactImput.ControlInput1">
-             <Form.Control type="text" placeholder="Contact"/>
+             <Form.Group className="mb-3" controlId="contactInput.ControlInput1">
+             <Form.Control type="text" placeholder="Contact" ref={input}/>
              </Form.Group>
 
          <Form.Group className="dropdown">
@@ -48,7 +56,7 @@ function ContactEntry() {
       </Form>
     </>
   )
-}
+});
 
 export default ContactEntry
   

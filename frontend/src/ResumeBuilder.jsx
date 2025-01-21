@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createRef, useReducer, useState, useRef } from 'react'
 import {Routes, Route} from 'react-router-dom'
 import ContactEntry from './ContactEntry'
 import EduEntry from './EduEntry'
@@ -19,6 +19,9 @@ function ResumeBuilder() {
   const [VolEntries, setVolEntries] = useState([]);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const contactRefs = useRef([]);
+  const eduRefs = useRef([]);
+  const expRefs = useRef([]);
 
   const addContactEntry = () => {
     setContactEntries((prevEntries) => {
@@ -26,25 +29,29 @@ function ResumeBuilder() {
         alert("You can't add more than 4 contact entries."); 
         return prevEntries;
       }
+      const newRef = createRef();
+      contactRefs.current.push(newRef);
       return [
         ...prevEntries,
-        <ContactEntry key={prevEntries.length} />, 
+        <ContactEntry key={prevEntries.length} ref={newRef}/>, 
       ];
     });
   };
 
-  const addEduEntry = () => {
-    setEduEntries((prevEntries) => {
-        if (prevEntries.length >= 5) {
-            alert("You can't add more than 5 edu entries."); 
-            return prevEntries;
-          }
-        return [
-         ...prevEntries,
-         <EduEntry key={prevEntries.length} />
-     ];
-    });
-  };
+    const addEduEntry = () => {
+        setEduEntries((prevEntries) => {
+            if (prevEntries.length >= 5) {
+                alert("You can't add more than 5 edu entries."); 
+                return prevEntries;
+            }
+            const newRef = createRef();
+            eduRefs.current.push(newRef);
+            return [
+                ...prevEntries,
+                <EduEntry key={prevEntries.length} ref={newRef}/>
+            ];
+        });
+    };
   
   const addExpEntry = () => {
     setExpEntries((prevEntries) => {
@@ -52,9 +59,11 @@ function ResumeBuilder() {
         alert("You can't add more than 5 experience entries."); 
         return prevEntries;
       }
+      const newRef = createRef();
+      expRefs.current.push(newRef);
       return [
         ...prevEntries,
-        <ExperienceEntry name = "Position" key={prevEntries.length} />, 
+        <ExperienceEntry name = "Position" key={prevEntries.length} ref={newRef}/>, 
       ];
     });
   };
